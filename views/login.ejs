@@ -1,0 +1,16 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Login <%=garageName%></title>
+    <link rel="stylesheet"  type="text/css" href="/main.css" />
+  </head>
+  <body>
+    <h1>Login <%=garageName%></h1>
+    <form method="POST" action="/loggedin">
+        <p>Username: <input type="text" name="username" placeholder="Username" /></p>
+        <!--type="password" to hide characters as dots for security-->
+        <p>Password: <input type="password" name="password" placeholder="Password" /></p>
+        <input type="submit" value="Login" />
+      </form> 
+  </body>
+</html>
