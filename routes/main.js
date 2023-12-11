@@ -24,8 +24,7 @@ module.exports = function(app, garageData) {
             res.redirect('./register');
         }
         else {
-            //Hash the user's password before saving it in the database
-            const plainPassword = req.body.password;
+            const plainPassword = req.body.password; //Hash the user's password before saving it in the database
         
             bycrypt.hash(plainPassword, saltRounds, function(err, hashedPassword) {
                 //Store hashed password in database
