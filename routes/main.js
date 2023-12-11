@@ -1,5 +1,6 @@
 const bycrypt = require('bcrypt');  //integrating bcrypt library
 const saltRounds = 10;
+const s = 10;
 const { check, validationResult } = require('express-validator');
 module.exports = function(app, garageData) {
 
