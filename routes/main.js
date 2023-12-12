@@ -14,6 +14,9 @@ module.exports = function(app, garageData) {
     app.get('/',function(req,res){
         res.render('index.ejs', garageData)
     });
+    app.get('/about',function(req,res){
+        res.render('about.ejs', garageData);
+    });
     app.get('/register', function (req,res) {
         res.render('register.ejs', garageData);                                                                
     });                                                                                                 
