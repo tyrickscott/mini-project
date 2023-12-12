@@ -114,4 +114,22 @@ module.exports = function(app, garageData) {
         res.send('you are now logged out. <a href='+'./'+'>Home</a>');
         })
     });
+
+    app.get('/addtool', function (req, res) {
+        res.render('addtool.ejs', garageData);
+     });
+
+     app.post('/tooladded', function (req,res) {
+        // saving data in database
+        let sqlquery = "INSERT INTO tools (name, category) VALUES (?,?)";
+        // execute sql query
+        let newrecord = [req.body.name, req.body.category];
+        db.query(sqlquery, newrecord, (err, result) => {
+            if (err) {
+            return console.error(err.message);
+            }
+            else
+            res.send(' This tool is added to database, name: '+ req.body.name + ' category: '+ req.body.category);
+            });
+    });    
 }

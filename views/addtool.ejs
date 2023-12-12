@@ -1,0 +1,15 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Add tool to <%=garageName%></title>
+    <link rel="stylesheet"  type="text/css" href="/main.css" />
+  </head>
+  <body>
+    <h1><%=garageName%>: Add tool</h1>
+    <form method="POST" action="/tooladded">
+        <p>Tool name: <input id="name" type="text" name="name" value="" /></p>
+        <p>Category: <input id="category" type="text" name="category" value="" /></p>
+        <input type="submit" value="Add Tool" />
+      </form>
+  </body>
+</html>
