@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Language Detection</title>
+    <link rel="stylesheet" type="text/css" href="/main.css" />
+</head>
+<body>
+    <h1>Language Detection</h1>
+    <form method="GET" action="/detect-language">
+        <label for="text">Enter Text:</label>
+        <input id="text" type="text" name="text" placeholder="Text" required />
+        <input type="submit" value="Detect Language" />
+    </form>
+    
+    <% if (languageData) { %>
+        <h2>Language Detected: <%= languageData.language %></h2>
+    <% } else { %>
+        <p><%= errorMessage || 'No data found' %></p>
+    <% } %>
+</body>
+</html>

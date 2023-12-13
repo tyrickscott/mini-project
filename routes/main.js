@@ -2,6 +2,10 @@ const bycrypt = require('bcrypt');  //integrating bcrypt library
 const saltRounds = 10;
 const s = 10;
 const { check, validationResult } = require('express-validator');
+
+// Import the DetectLanguage module
+const DetectLanguage = require('detectlanguage');
+const detectlanguage = new DetectLanguage('2dfbd4008071288f726fe0414980f7de'); //API key
 module.exports = function(app, garageData) {
 
     const redirectLogin = (req, res, next) => {
@@ -150,7 +154,7 @@ module.exports = function(app, garageData) {
         res.render('addtool.ejs', garageData);
      });
 
-     app.post('/tooladded', function (req,res) {
+    app.post('/tooladded', function (req,res) {
         // saving data in database
         let sqlquery = "INSERT INTO tools (name, category) VALUES (?,?)";
         // execute sql query
@@ -162,5 +166,43 @@ module.exports = function(app, garageData) {
             else
             res.send(' This tool is added to database, name: '+ req.body.name + ' category: '+ req.body.category);
             });
-    });    
+    });  
+
+    //add a new route for language detection
+    app.get('/detect-language', (req, res) => {
+        const text = req.query.text || 'Hello World'; // Default text if not provided
+
+        //use API for language detection
+         detectlanguage.detect(text).then((result) => {
+            const languageData = result[0];
+            res.render('language-detection.ejs', { languageData });
+        }).catch((error) => {
+            console.error('error detecting language:', error);
+            es.render('language-detection.ejs', { languageData: null, errorMessage: 'Error detecting language' });
+        });
+    });
+
+    app.get('/api', function (req, res) {
+        // Get the search keyword from the query parameters
+        const keyword = req.query.keyword;
+    
+        //build query for keyword
+        let sqlquery = keyword
+            ? "SELECT * FROM tools WHERE name LIKE ?"
+            : "SELECT * FROM tools";
+    
+        //build the SQL query parameters
+        let sqlParams = keyword ? [`%${keyword}%`] : [];
+    
+        //execute the SQL query
+        db.query(sqlquery, sqlParams, (err, result) => {
+            if (err) {
+                res.status(500).json({ error: 'server error' });
+            } else {
+                //return results as a JSON object
+                res.json(result);
+            }
+        });
+    });
+    
 }
