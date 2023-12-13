@@ -17,6 +17,37 @@ module.exports = function(app, garageData) {
     app.get('/about',function(req,res){
         res.render('about.ejs', garageData);
     });
+    app.get('/search',function(req,res){
+        res.render("search.ejs", garageData);
+    });
+
+    app.get('/search-result', function (req, res) {
+        //searching in the database
+        let sqlquery = "SELECT * FROM tools WHERE name LIKE '%" + req.query.keyword + "%'"; // query database to get all the tools
+        // execute sql query
+        db.query(sqlquery, (err, result) => {
+            if (err) {
+                res.redirect('./'); 
+            }
+            let newData = Object.assign({}, garageData, {availableTools:result});
+            console.log(newData)
+            res.render("list.ejs", newData)  //putting newData into the ejs 
+         });        
+    });
+
+    app.get('/list', redirectLogin, function(req, res) {
+        let sqlquery = "SELECT * FROM tools"; // query database to get all the tools
+        // execute sql query
+        db.query(sqlquery, (err, result) => {
+            if (err) {
+                res.redirect('./'); 
+            }
+            let newData = Object.assign({}, garageData, {availableTools:result});
+            console.log(newData)
+            res.render("list.ejs", newData)
+         });
+    });
+
     app.get('/register', function (req,res) {
         res.render('register.ejs', garageData);                                                                
     });                                                                                                 

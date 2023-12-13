@@ -1,0 +1,16 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Welcome to <%=garageName%></title>
+    <link rel="stylesheet"  type="text/css" href="/main.css" />
+  </head>
+  <body>
+    <h1><%=garageName%> Shop</h1>
+    <h2>Here are the tools in garage:</h2>
+    <ul>
+      <% availableTools.forEach(function(tool) { %>
+        <li><%= tool.name %>, <%=tool.category%> </li>
+      <% }) %>
+    </ul>
+    </body>
+</html>
