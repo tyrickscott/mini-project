@@ -150,23 +150,50 @@ module.exports = function(app, garageData) {
         })
     });
 
+    // Add this before the app.listen() line
+    db.query('SELECT * FROM locations', (err, results) => {
+        if (err) {
+            console.error('Error querying locations:', err);
+            return;
+        }
+        garageData.locations = results;
+      });     
+
+
     app.get('/addtool', function (req, res) {
         res.render('addtool.ejs', garageData);
      });
 
-    app.post('/tooladded', function (req,res) {
-        // saving data in database
-        let sqlquery = "INSERT INTO tools (name, category) VALUES (?,?)";
-        // execute sql query
-        let newrecord = [req.body.name, req.body.category];
-        db.query(sqlquery, newrecord, (err, result) => {
-            if (err) {
-            return console.error(err.message);
+    app.post('/tooladded', function (req, res) {
+        // Perform language detection on the tool name using the Detect Language API
+        const toolName = req.body.name;
+    
+        // Use API for language detection
+        detectlanguage.detect(toolName).then((result) => {
+            const languageData = result[0];
+    
+            // Check if the detected language is English ('en')
+            if (languageData && languageData.language && languageData.language === 'en') {
+                // Continue with storing data in the database
+                let sqlquery = "INSERT INTO tools (name, category, location_id) VALUES (?,?,?)";
+                let newrecord = [req.body.name, req.body.category, req.body.location_id];
+    
+                db.query(sqlquery, newrecord, (err, result) => {
+                    if (err) {
+                        return console.error(err.message);
+                    } else {
+                        res.send('This tool is added to the database, name: ' + req.body.name + ' category: ' + req.body.category);
+                    }
+                });
+            } else {
+                // Reject input if language is not English
+                res.send('Tool name is not in English. Please enter an English tool name.');
             }
-            else
-            res.send(' This tool is added to database, name: '+ req.body.name + ' category: '+ req.body.category);
-            });
-    });  
+        }).catch((error) => {
+            console.error('Error detecting language:', error);
+            res.send('Error detecting language');
+        });
+    });
 
     //add a new route for language detection
     app.get('/detect-language', (req, res) => {

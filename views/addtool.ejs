@@ -9,7 +9,15 @@
     <form method="POST" action="/tooladded">
         <p>Tool name: <input id="name" type="text" name="name" value="" /></p>
         <p>Category: <input id="category" type="text" name="category" value="" /></p>
+        <p>Location:
+          <select name="location_id">
+          <% locations.forEach(function(location) { %>
+          <option value="<%= location.location_id %>"><%= location.location_name %></option>
+          <% }) %>
+          </select>
+        </p>
         <input type="submit" value="Add Tool" />
       </form>
+    
   </body>
 </html>
