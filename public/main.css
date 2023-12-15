@@ -1,62 +1,60 @@
-/* styles.css */
-
+/* styling for whole page */
 body {
   font-family: 'Arial', sans-serif;
-  background-color: #f0f8ff; /* Light blue background */
+  background-color: #f0f8ff; /* light blue background */
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: 100vh; /* Full viewport height */
+  height: 100vh; /* full viewport height */
   margin: 0;
 }
 
+/* header styles */
 h1, h2, h3 {
-  color: #336699;
+  color: #336699; /* dark blue headings */
 }
 
+/* paragraph styles */
 p {
-  color: #333;
+  color: #333; /* dark gray text */
 }
 
-/* Add more styles as needed */
-
-/* Form styles */
+/* form element styles */
 input, select {
   padding: 8px;
   margin-bottom: 10px;
-  border: 1px solid #336699;
+  border: 1px solid #336699; /* dark blue border */
   border-radius: 4px;
 }
 
+/* button styles */
 button {
-  background-color: #336699;
-  color: #fff;
+  background-color: #336699; /* dark blue button background */
+  color: #fff; /* white text */
   padding: 10px;
   border: none;
   border-radius: 4px;
   cursor: pointer;
 }
 
+/* button hover effect */
 button:hover {
-  background-color: #254e77;
+  background-color: #254e77; /* slightly darker blue on hover */
 }
 
-/* Search results styles */
+/* styling for search results */
 .search-result {
-  background-color: #f0f8ff;
+  background-color: #f0f8ff; /* light blue background for each search result */
   padding: 10px;
   margin-bottom: 10px;
 }
 
-/* Horizontal tabs */
+/* styling for horizontal tabs */
 .tabs {
   display: flex;
   justify-content: space-around;
   width: 80%;
   margin-top: 20px;
 }
-
-/* Add more specific styles for different elements */
-
 
