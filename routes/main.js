@@ -1,5 +1,5 @@
 //import libraries and modules
-const bycrypt = require('bcrypt');  //Integrating bcrypt library
+const bcrypt = require('bcrypt');  //Integrating bcrypt library
 const saltRounds = 10;
 const s = 10;
 const { check, validationResult } = require('express-validator');
